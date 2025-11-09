@@ -1,0 +1,75 @@
+package com.hannesdorfmann.adapterdelegates4.sample
+
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
+import com.hannesdorfmann.adapterdelegates4.sample.model.ContentItem
+import com.hannesdorfmann.adapterdelegates4.sample.viewmodel.MainViewModel
+
+/**
+ * Simple MainActivity that works without custom layouts
+ */
+class SimpleMainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: MainViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ListDelegationAdapter<List<ContentItem>>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Create RecyclerView programmatically
+        recyclerView = RecyclerView(this)
+        setContentView(recyclerView)
+
+        setupViewModel()
+        setupRecyclerView()
+        observeViewModel()
+
+        // Load data
+        viewModel.loadContent()
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
+    private fun setupRecyclerView() {
+        // Create adapter with delegates
+        adapter = ListDelegationAdapter(
+            FeaturedArticleDelegate { article ->
+                Toast.makeText(this, "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
+            },
+            ArticleDelegate { article ->
+                Toast.makeText(this, "Article: ${article.title}", Toast.LENGTH_SHORT).show()
+            },
+            SectionHeaderDelegate(),
+            LoadingDelegate(),
+            ErrorDelegate {
+                viewModel.retry()
+            }
+        )
+
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@SimpleMainActivity)
+            this.adapter = this@SimpleMainActivity.adapter
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.contentList.observe(this) { items ->
+            adapter.items = items
+            adapter.notifyDataSetChanged()
+        }
+
+        viewModel.errorMessage.observe(this) { message ->
+            message?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}

@@ -3,6 +3,8 @@ package com.hannesdorfmann.adapterdelegates4;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.robolectric.RuntimeEnvironment;
+
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class SpyableAdapterDelegate<T> extends AdapterDelegate<T> {
 
     public SpyableAdapterDelegate(int viewType) {
         this.viewType = viewType;
-        viewHolder = new RecyclerView.ViewHolder(new View(null)) {
+        viewHolder = new RecyclerView.ViewHolder(new View(RuntimeEnvironment.getApplication())) {
         };
 
         try {

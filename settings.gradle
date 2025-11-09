@@ -1,1 +1,24 @@
-include ':library', ':paging', ':kotlin-dsl', ':kotlin-dsl-layoutcontainer', ':kotlin-dsl-viewbinding'
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "AdapterDelegates"
+include ':library'
+include ':paging'
+include ':kotlin-dsl'
+// Temporariamente desabilitado - depende de kotlin-android-extensions que foi removido do Kotlin 2.x
+// include ':kotlin-dsl-layoutcontainer'
+include ':kotlin-dsl-viewbinding'
+include ':app'

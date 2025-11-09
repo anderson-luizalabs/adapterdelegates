@@ -3,22 +3,26 @@ package com.hannesdorfmann.adapterdelegates4
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.hannesdorfmann.adapterdelegates4.dsl.AdapterDelegateViewHolder
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.`when` as whenever
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34])
 class ListAdapterDelegateDslTest {
 
     data class Item(val name: String)
 
     private fun fakeLayoutInflater(layoutToInflate: Int): Pair<(ViewGroup, Int) -> View, ViewGroup> {
-        val viewGroup = Mockito.mock(ViewGroup::class.java)
-        val view = Mockito.mock(View::class.java)
-        val context = Mockito.mock(Context::class.java)
-        whenever(view.context).thenReturn(context)
+        val context = RuntimeEnvironment.getApplication()
+        val viewGroup = FrameLayout(context)
+        val view = View(context)
 
         val inflater = { parent: ViewGroup, layoutRes: Int ->
             Assert.assertSame(viewGroup, parent)

@@ -1,16 +1,22 @@
 package com.hannesdorfmann.adapterdelegates4;
 
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import java.util.Collections;
 
 /**
  * @author Hannes Dorfmann
  */
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = 34)
 public class AbsDelegationAdapterTest {
 
     @Test
@@ -78,7 +84,7 @@ public class AbsDelegationAdapterTest {
             }
         };
 
-        ViewGroup parent = Mockito.mock(ViewGroup.class);
+        ViewGroup parent = new FrameLayout(RuntimeEnvironment.getApplication());
 
 
         // CreateViewHolder

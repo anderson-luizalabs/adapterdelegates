@@ -28,7 +28,7 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
  * what to do once the ViewHolder binds to the data by specifying a bind block for
  * @since 4.1.0
  */
-inline fun <reified I : T, T> adapterDelegate(
+inline fun <reified I : T, T : Any> adapterDelegate(
     @LayoutRes layout: Int,
     noinline on: (item: T, items: List<T>, position: Int) -> Boolean = { item, _, _ -> item is I },
     noinline layoutInflater: (parent: ViewGroup, layoutRes: Int) -> View = { parent, layout ->
@@ -54,14 +54,14 @@ inline fun <reified I : T, T> adapterDelegate(
  * @since 4.1.0
  */
 @PublishedApi
-internal class DslListAdapterDelegate<I : T, T>(
+internal class DslListAdapterDelegate<I : T, T : Any>(
     @LayoutRes private val layout: Int,
     private val on: (item: T, items: List<T>, position: Int) -> Boolean,
     private val initializerBlock: AdapterDelegateViewHolder<I>.() -> Unit,
     private val layoutInflater: (parent: ViewGroup, layout: Int) -> View
 ) : AbsListItemAdapterDelegate<I, T, AdapterDelegateViewHolder<I>>() {
 
-    override fun isForViewType(item: T, items: MutableList<T>, position: Int): Boolean = on(
+    override fun isForViewType(item: T, items: List<T>, position: Int): Boolean = on(
         item, items, position
     )
 
@@ -75,9 +75,9 @@ internal class DslListAdapterDelegate<I : T, T>(
     override fun onBindViewHolder(
         item: I,
         holder: AdapterDelegateViewHolder<I>,
-        payloads: MutableList<Any>
+        payloads: List<Any>
     ) {
-        holder._item = item as Any
+        holder._item = item
         holder._bind?.invoke(payloads) // It's ok to have an AdapterDelegate without binding block (i.e. static content)
     }
 

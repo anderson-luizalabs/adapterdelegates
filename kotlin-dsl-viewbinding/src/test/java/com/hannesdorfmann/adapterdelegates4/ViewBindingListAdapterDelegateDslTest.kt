@@ -4,31 +4,36 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.viewbinding.ViewBinding
 import com.hannesdorfmann.adapterdelegates4.dsl.AdapterDelegateViewBindingViewHolder
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.`when` as whenever
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34])
 class ViewBindingListAdapterDelegateDslTest {
 
     data class Item(val name: String)
 
     private fun fakeLayoutInflater(): LayoutInflater {
-        return Mockito.mock(LayoutInflater::class.java)
+        val context = RuntimeEnvironment.getApplication()
+        return LayoutInflater.from(context)
     }
 
     private fun fakeView(): View {
-        val view = Mockito.mock(View::class.java)
-        val context = Mockito.mock(Context::class.java)
-        whenever(view.context).thenReturn(context)
-        return view
+        val context = RuntimeEnvironment.getApplication()
+        return View(context)
     }
 
     private fun fakeViewGroup(): ViewGroup {
-        return Mockito.mock(ViewGroup::class.java)
+        val context = RuntimeEnvironment.getApplication()
+        return FrameLayout(context)
     }
 
     @Test

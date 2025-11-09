@@ -2,11 +2,15 @@ package com.hannesdorfmann.adapterdelegates4;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * @author Hannes Dorfmann
  */
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = 34)
 public class AbsListItemAdapterDelegateTest {
 
     @Test
@@ -30,7 +36,7 @@ public class AbsListItemAdapterDelegateTest {
         delegate.isForViewType(items, 0);
         Assert.assertTrue(delegate.isForViewTypeCalled);
 
-        ViewGroup parent = Mockito.mock(ViewGroup.class);
+        ViewGroup parent = new FrameLayout(RuntimeEnvironment.getApplication());
         CatViewHolder vh = delegate.onCreateViewHolder(parent);
         Assert.assertTrue(delegate.onCreateViewHolderCalled);
 
@@ -70,7 +76,7 @@ public class AbsListItemAdapterDelegateTest {
         @Override
         public CatViewHolder onCreateViewHolder(@NonNull ViewGroup parent) {
             onCreateViewHolderCalled = true;
-            return new CatViewHolder(Mockito.mock(View.class));
+            return new CatViewHolder(new View(RuntimeEnvironment.getApplication()));
         }
 
         @Override
