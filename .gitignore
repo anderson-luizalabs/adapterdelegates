@@ -72,3 +72,6 @@ app/src/main/res/values/com_crashlytics_export_strings.xml
 
 #infer
 infer-out/
+
+
+/firebender.json
