@@ -1,0 +1,38 @@
+{
+  "rules": [
+    "This is an Android library project called AdapterDelegates",
+    "Project is 100% Kotlin - no Java code in production",
+    "Use Kotlin coroutines and Flow for asynchronous operations",
+    "Follow Material Design 3 guidelines when applicable",
+    "Never use runBlocking in production code",
+    "Use semantic commit messages in English (feat:, fix:, refactor:, docs:, etc.)",
+    "All public APIs must have KDoc documentation",
+    "Use @JvmField for fields that need Java interop",
+    "Prefer immutable data structures (val, List, etc.)",
+    {
+      "filePathMatches": "**/*Test.kt",
+      "rules": [
+        "Use MockK for mocking (not Mockito)",
+        "Use Robolectric for Android component tests",
+        "Test files use relaxed mocks: mockk(relaxed = true)",
+        "Prefer descriptive test names using backticks",
+        "Use JUnit 4 assertions"
+      ]
+    },
+    {
+      "filePathMatches": "**/build.gradle.kts",
+      "rules": [
+        "Use Kotlin DSL for all Gradle scripts",
+        "Use version catalog (libs.versions.toml) for dependencies",
+        "Never hardcode version numbers in build files"
+      ]
+    }
+  ],
+  "ignore": [
+    "**/build/**",
+    "**/.gradle/**",
+    "**/local.properties",
+    "**/*.apk",
+    "**/*.aab"
+  ]
+}
