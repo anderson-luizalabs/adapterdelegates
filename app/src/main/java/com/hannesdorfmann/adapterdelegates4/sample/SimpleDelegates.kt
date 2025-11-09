@@ -27,8 +27,8 @@ class FeaturedArticleDelegate(
         return item is FeaturedArticle
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        val layout = LinearLayout(parent.context).apply {
+    override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
+        val layout = LinearLayout(parent!!.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -38,13 +38,13 @@ class FeaturedArticleDelegate(
             setBackgroundColor(Color.parseColor("#F5F5F5"))
         }
 
-        val title = TextView(parent.context).apply {
+        val title = TextView(parent!!.context).apply {
             textSize = 20f
             setTextColor(Color.BLACK)
             setPadding(0, 0, 0, 16)
         }
 
-        val subtitle = TextView(parent.context).apply {
+        val subtitle = TextView(parent!!.context).apply {
             textSize = 14f
             setTextColor(Color.GRAY)
         }
@@ -80,8 +80,8 @@ class ArticleDelegate(
         return item is Article
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        val layout = LinearLayout(parent.context).apply {
+    override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
+        val layout = LinearLayout(parent!!.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -90,13 +90,13 @@ class ArticleDelegate(
             setPadding(32, 16, 32, 16)
         }
 
-        val title = TextView(parent.context).apply {
+        val title = TextView(parent!!.context).apply {
             textSize = 16f
             setTextColor(Color.BLACK)
             setPadding(0, 0, 0, 8)
         }
 
-        val summary = TextView(parent.context).apply {
+        val summary = TextView(parent!!.context).apply {
             textSize = 12f
             setTextColor(Color.GRAY)
         }
@@ -129,8 +129,8 @@ class SectionHeaderDelegate :
         return item is SectionHeader
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        val textView = TextView(parent.context).apply {
+    override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
+        val textView = TextView(parent!!.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -158,8 +158,8 @@ class LoadingDelegate :
         return item is LoadingItem
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        val textView = TextView(parent.context).apply {
+    override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
+        val textView = TextView(parent!!.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 200,
@@ -188,8 +188,8 @@ class ErrorDelegate(
         return item is ErrorItem
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-        val layout = LinearLayout(parent.context).apply {
+    override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
+        val layout = LinearLayout(parent!!.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -199,7 +199,7 @@ class ErrorDelegate(
             setPadding(32, 64, 32, 64)
         }
 
-        val message = TextView(parent.context).apply {
+        val message = TextView(parent!!.context).apply {
             text = "Error occurred"
             textSize = 16f
             setTextColor(Color.RED)
@@ -207,7 +207,7 @@ class ErrorDelegate(
             setPadding(0, 0, 0, 16)
         }
 
-        val retryButton = TextView(parent.context).apply {
+        val retryButton = TextView(parent!!.context).apply {
             text = "🔄 Retry"
             textSize = 14f
             setTextColor(Color.BLUE)

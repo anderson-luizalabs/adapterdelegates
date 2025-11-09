@@ -34,7 +34,7 @@ abstract class AdapterDelegate<T> {
      * @return The new instantiated [RecyclerView.ViewHolder]
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    abstract fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
+    abstract fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder
 
     /**
      * Called to bind the [RecyclerView.ViewHolder] to the item of the data source set

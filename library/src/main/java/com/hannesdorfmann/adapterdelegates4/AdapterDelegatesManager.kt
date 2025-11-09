@@ -32,8 +32,8 @@ open class AdapterDelegatesManager<T> {
     @JvmField
     internal val delegates = SparseArrayCompat<AdapterDelegate<T>>()
 
-    var fallbackDelegate: AdapterDelegate<T>? = null
-        private set
+    @JvmField
+    internal var fallbackDelegate: AdapterDelegate<T>? = null
 
     /**
      * Creates an AdapterDelegatesManager without any delegates.
@@ -155,7 +155,7 @@ open class AdapterDelegatesManager<T> {
      * Create ViewHolder.
      * Must be called from [RecyclerView.Adapter.onCreateViewHolder]
      */
-    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val delegate =
             getDelegateForViewType(viewType)
                 ?: throw NullPointerException("No AdapterDelegate added for ViewType $viewType")

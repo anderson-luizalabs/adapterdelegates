@@ -22,12 +22,12 @@ class ListAdapterDelegateDslTest {
 
     data class Item(val name: String)
 
-    private fun fakeLayoutInflater(layoutToInflate: Int): Pair<(ViewGroup, Int) -> View, ViewGroup> {
+    private fun fakeLayoutInflater(layoutToInflate: Int): Pair<(ViewGroup?, Int) -> View, ViewGroup> {
         val context = RuntimeEnvironment.getApplication()
         val viewGroup = FrameLayout(context)
         val view = View(context)
 
-        val inflater = { parent: ViewGroup, layoutRes: Int ->
+        val inflater = { parent: ViewGroup?, layoutRes: Int ->
             Assert.assertSame(viewGroup, parent)
             Assert.assertEquals(layoutToInflate, layoutRes)
             view

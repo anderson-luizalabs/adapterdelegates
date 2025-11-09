@@ -34,8 +34,8 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 inline fun <reified I : T, T : Any> adapterDelegate(
     @LayoutRes layout: Int,
     noinline on: (item: T, items: List<T>, position: Int) -> Boolean = { item, _, _ -> item is I },
-    noinline layoutInflater: (parent: ViewGroup, layoutRes: Int) -> View = { parent, layout ->
-        LayoutInflater.from(parent.context).inflate(
+    noinline layoutInflater: (parent: ViewGroup?, layoutRes: Int) -> View = { parent, layout ->
+        LayoutInflater.from(parent?.context).inflate(
             layout,
             parent,
             false,
@@ -60,7 +60,7 @@ internal class DslListAdapterDelegate<I : T, T : Any>(
     @LayoutRes private val layout: Int,
     private val on: (item: T, items: List<T>, position: Int) -> Boolean,
     private val initializerBlock: AdapterDelegateViewHolder<I>.() -> Unit,
-    private val layoutInflater: (parent: ViewGroup, layout: Int) -> View,
+    private val layoutInflater: (parent: ViewGroup?, layout: Int) -> View,
 ) : AbsListItemAdapterDelegate<I, T, AdapterDelegateViewHolder<I>>() {
 
     override fun isForViewType(item: T, items: List<T>, position: Int): Boolean = on(
@@ -69,7 +69,7 @@ internal class DslListAdapterDelegate<I : T, T : Any>(
         position,
     )
 
-    override fun onCreateViewHolder(parent: ViewGroup): AdapterDelegateViewHolder<I> = AdapterDelegateViewHolder<I>(
+    override fun onCreateViewHolder(parent: ViewGroup?): AdapterDelegateViewHolder<I> = AdapterDelegateViewHolder<I>(
         layoutInflater(parent, layout),
     ).also {
         initializerBlock(it)

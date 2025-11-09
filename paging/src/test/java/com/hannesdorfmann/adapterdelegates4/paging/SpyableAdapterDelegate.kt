@@ -1,20 +1,19 @@
 /*
  * Copyright (c) 2025 LuizaLabs.
  */
-package com.hannesdorfmann.adapterdelegates4
+package com.hannesdorfmann.adapterdelegates4.paging
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.robolectric.RuntimeEnvironment
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 
 /**
- * Test spy for AdapterDelegate
  * @author Hannes Dorfmann
  */
 class SpyableAdapterDelegate<T>(
     @JvmField
-    val viewType: Int
+    val viewType: Int,
 ) : AdapterDelegate<T>() {
 
     @JvmField
@@ -42,15 +41,17 @@ class SpyableAdapterDelegate<T>(
     var onBindViewHolderPosition = -1
 
     @JvmField
-    val viewHolder: RecyclerView.ViewHolder = object : RecyclerView.ViewHolder(
-        View(RuntimeEnvironment.getApplication())
-    ) {}.apply {
-        // Set viewType using reflection
+    val viewHolder: RecyclerView.ViewHolder
+
+    init {
+        viewHolder = object : RecyclerView.ViewHolder(View(null)) {}
+
         try {
             val viewTypeField = RecyclerView.ViewHolder::class.java
                 .getDeclaredField("mItemViewType")
+
             viewTypeField.isAccessible = true
-            viewTypeField.set(this, viewType)
+            viewTypeField.set(viewHolder, viewType)
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
@@ -84,7 +85,7 @@ class SpyableAdapterDelegate<T>(
         items: T,
         position: Int,
         holder: RecyclerView.ViewHolder,
-        payloads: List<Any>
+        payloads: List<Any>,
     ) {
         onBindViewHolderCalled = true
         onBindViewHolderPosition = position
