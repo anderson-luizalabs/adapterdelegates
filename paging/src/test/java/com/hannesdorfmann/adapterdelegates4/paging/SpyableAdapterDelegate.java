@@ -76,7 +76,7 @@ public class SpyableAdapterDelegate<T> extends AdapterDelegate<T> {
 
     @Override
     public void onBindViewHolder(@NonNull T items, int position,
-                                 @NonNull RecyclerView.ViewHolder holder, @Nullable List<Object> payloads) {
+                                 @NonNull RecyclerView.ViewHolder holder, @NonNull List<? extends Object> payloads) {
         onBindViewHolderCalled = true;
         onBindViewHolderPosition = position;
     }

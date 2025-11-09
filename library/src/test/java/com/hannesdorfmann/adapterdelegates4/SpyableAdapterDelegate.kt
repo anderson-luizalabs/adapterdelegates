@@ -16,15 +16,31 @@ class SpyableAdapterDelegate<T>(
     val viewType: Int
 ) : AdapterDelegate<T>() {
 
+    @JvmField
     var isForViewTypeReturnedYes = false
+
+    @JvmField
     var onCreateViewHolderCalled = false
+
+    @JvmField
     var onBindViewHolderCalled = false
+
+    @JvmField
     var onViewDetachedFromWindowCalled = false
+
+    @JvmField
     var onViewAttachedToWindowCalled = false
+
+    @JvmField
     var onViewRecycledCalled = false
+
+    @JvmField
     var onFailedToRecycleViewCalled = false
+
+    @JvmField
     var onBindViewHolderPosition = -1
 
+    @JvmField
     val viewHolder: RecyclerView.ViewHolder = object : RecyclerView.ViewHolder(
         View(RuntimeEnvironment.getApplication())
     ) {}.apply {
@@ -67,7 +83,7 @@ class SpyableAdapterDelegate<T>(
         items: T,
         position: Int,
         holder: RecyclerView.ViewHolder,
-        payloads: List<Any>?
+        payloads: List<Any>
     ) {
         onBindViewHolderCalled = true
         onBindViewHolderPosition = position

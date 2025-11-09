@@ -29,7 +29,8 @@ open class AdapterDelegatesManager<T> {
     /**
      * Map for ViewType to AdapterDelegate
      */
-    private val delegates = SparseArrayCompat<AdapterDelegate<T>>()
+    @JvmField
+    internal val delegates = SparseArrayCompat<AdapterDelegate<T>>()
 
     var fallbackDelegate: AdapterDelegate<T>? = null
         private set

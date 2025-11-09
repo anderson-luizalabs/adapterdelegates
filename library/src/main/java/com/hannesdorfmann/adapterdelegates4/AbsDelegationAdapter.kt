@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @author Hannes Dorfmann
  */
 abstract class AbsDelegationAdapter<T>(
+    @JvmField
     protected val delegatesManager: AdapterDelegatesManager<T> = AdapterDelegatesManager(),
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var items: T? = null

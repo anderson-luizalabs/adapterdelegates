@@ -188,7 +188,7 @@ public class AdapterDelegatesManagerTest {
         manager.addDelegate(d2);
 
         // Test first item
-        manager.onBindViewHolder(items, 0, d0.viewHolder);
+        manager.onBindViewHolder(items, 0, d0.viewHolder, Collections.emptyList());
         Assert.assertTrue(d0.onBindViewHolderCalled);
         Assert.assertFalse(d1.onBindViewHolderCalled);
         Assert.assertFalse(d2.onBindViewHolderCalled);
@@ -196,7 +196,7 @@ public class AdapterDelegatesManagerTest {
         resetDelegates(d0, d1, d2);
 
         // Test second item
-        manager.onBindViewHolder(items, 1, d1.viewHolder);
+        manager.onBindViewHolder(items, 1, d1.viewHolder, Collections.emptyList());
         Assert.assertTrue(d1.onBindViewHolderCalled);
         Assert.assertFalse(d0.onBindViewHolderCalled);
         Assert.assertFalse(d2.onBindViewHolderCalled);
@@ -204,7 +204,7 @@ public class AdapterDelegatesManagerTest {
         resetDelegates(d0, d1, d2);
 
         // Test third item
-        manager.onBindViewHolder(items, 2, d2.viewHolder);
+        manager.onBindViewHolder(items, 2, d2.viewHolder, Collections.emptyList());
         Assert.assertTrue(d2.onBindViewHolderCalled);
         Assert.assertFalse(d1.onBindViewHolderCalled);
         Assert.assertFalse(d0.onBindViewHolderCalled);

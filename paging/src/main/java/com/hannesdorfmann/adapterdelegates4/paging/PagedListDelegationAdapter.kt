@@ -17,6 +17,7 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
  * @param T The type of items in the PagedList
  */
 open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerView.ViewHolder> {
+    @JvmField
     protected val delegatesManager: AdapterDelegatesManager<List<T>>
 
     /**
