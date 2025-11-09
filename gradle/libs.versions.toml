@@ -19,6 +19,7 @@ androidx-paging = "3.3.5"
 androidx-annotation = "1.9.1"
 androidx-lifecycle = "2.8.7"
 androidx-swiperefreshlayout = "1.1.0"
+androidx-activity = "1.9.3"
 
 # Image Loading
 glide = "4.16.0"
@@ -48,6 +49,7 @@ androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-r
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
+androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 # Kotlin
@@ -89,7 +91,8 @@ androidx = [
     "androidx-lifecycle-runtime",
     "androidx-lifecycle-viewmodel",
     "androidx-lifecycle-livedata",
-    "androidx-swiperefreshlayout"
+    "androidx-swiperefreshlayout",
+    "androidx-activity"
 ]
 
 testing-unit = [

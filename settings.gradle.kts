@@ -15,10 +15,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AdapterDelegates"
-include ':library'
-include ':paging'
-include ':kotlin-dsl'
+include(":library")
+include(":paging")
+include(":kotlin-dsl")
 // Temporariamente desabilitado - depende de kotlin-android-extensions que foi removido do Kotlin 2.x
-// include ':kotlin-dsl-layoutcontainer'
-include ':kotlin-dsl-viewbinding'
-include ':app'
+// include(':kotlin-dsl-layoutcontainer')
+include(":kotlin-dsl-viewbinding")
+include(":app")

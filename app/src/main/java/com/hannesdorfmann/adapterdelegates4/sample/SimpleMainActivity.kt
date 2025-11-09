@@ -2,7 +2,11 @@ package com.hannesdorfmann.adapterdelegates4.sample
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +24,24 @@ class SimpleMainActivity : AppCompatActivity() {
     private lateinit var adapter: ListDelegationAdapter<List<ContentItem>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         // Create RecyclerView programmatically
         recyclerView = RecyclerView(this)
         setContentView(recyclerView)
+
+        // Apply window insets for Edge-to-Edge
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(
+                left = systemBars.left,
+                top = systemBars.top,
+                right = systemBars.right,
+                bottom = systemBars.bottom
+            )
+            insets
+        }
 
         setupViewModel()
         setupRecyclerView()
