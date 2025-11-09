@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hannesdorfmann.adapterdelegates4.dsl.viewbinding"
+    namespace = "com.hannesdorfmann.adapterdelegates4.viewbinding"
     compileSdk = 35
 
     defaultConfig {

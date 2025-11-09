@@ -41,5 +41,5 @@ dependencies {
     api(project(":library"))
     api(libs.androidx.paging)
 
-    testImplementation libs.bundles.testing.unit
+    testImplementation(libs.bundles.testing.unit)
 }

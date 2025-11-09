@@ -41,11 +41,10 @@ class MainViewModel : ViewModel() {
                 allItems.clear()
                 allItems.addAll(items)
                 _contentList.value = items
-
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to load content: ${e.message}"
                 _contentList.value = listOf(
-                    ErrorItem(message = "Something went wrong", canRetry = true)
+                    ErrorItem(message = "Something went wrong", canRetry = true),
                 )
             } finally {
                 _isLoading.value = false
@@ -99,7 +98,9 @@ class MainViewModel : ViewModel() {
         val updated = allItems.map { item ->
             if (item is FeaturedArticle && item.id == article.id) {
                 item.copy(isBookmarked = !item.isBookmarked)
-            } else item
+            } else {
+                item
+            }
         }
         allItems.clear()
         allItems.addAll(updated)
@@ -111,9 +112,11 @@ class MainViewModel : ViewModel() {
             if (item is CodeSnippet && item.id == snippet.id) {
                 item.copy(
                     isStarred = !item.isStarred,
-                    stars = if (!item.isStarred) item.stars + 1 else item.stars - 1
+                    stars = if (!item.isStarred) item.stars + 1 else item.stars - 1,
                 )
-            } else item
+            } else {
+                item
+            }
         }
         allItems.clear()
         allItems.addAll(updated)
@@ -130,8 +133,8 @@ class MainViewModel : ViewModel() {
         items.add(
             SectionHeader(
                 id = "header-latest",
-                title = "Latest Articles"
-            )
+                title = "Latest Articles",
+            ),
         )
 
         // Add mix of articles only (types we have delegates for)
@@ -150,8 +153,8 @@ class MainViewModel : ViewModel() {
         items.add(
             SectionHeader(
                 id = "header-page-$page",
-                title = "More Articles - Page $page"
-            )
+                title = "More Articles - Page $page",
+            ),
         )
 
         // Generate only articles (type we have delegate for)
@@ -173,14 +176,14 @@ class MainViewModel : ViewModel() {
             "1",
             "JetBrains Team",
             "https://example.com/avatar1.jpg",
-            isVerified = true
+            isVerified = true,
         ),
         imageUrl = "https://picsum.photos/800/400?random=1",
         readTimeMinutes = 8,
         category = Category.MOBILE,
         isPremium = true,
         likes = 1234,
-        isBookmarked = false
+        isBookmarked = false,
     )
 
     private fun createArticle(index: Int) = Article(
@@ -191,13 +194,13 @@ class MainViewModel : ViewModel() {
         author = Author(
             "author-$index",
             authorNames[index % authorNames.size],
-            "https://picsum.photos/100/100?random=$index"
+            "https://picsum.photos/100/100?random=$index",
         ),
         thumbnailUrl = "https://picsum.photos/400/300?random=$index",
         readTimeMinutes = Random.nextInt(3, 15),
         category = Category.values()[index % Category.values().size],
         tags = listOf("Kotlin", "Android", "Development").shuffled().take(2),
-        viewCount = Random.nextInt(100, 10000)
+        viewCount = Random.nextInt(100, 10000),
     )
 
     private fun createVideoTutorial(index: Int) = VideoTutorial(
@@ -209,7 +212,7 @@ class MainViewModel : ViewModel() {
         duration = "${Random.nextInt(5, 45)}:${Random.nextInt(10, 59)}",
         level = SkillLevel.values()[index % SkillLevel.values().size],
         technology = "Jetpack Compose",
-        progress = if (index % 3 == 0) Random.nextFloat() else 0f
+        progress = if (index % 3 == 0) Random.nextFloat() else 0f,
     )
 
     private fun createCodeSnippet(index: Int) = CodeSnippet(
@@ -228,7 +231,7 @@ class MainViewModel : ViewModel() {
         """.trimMargin(),
         description = "Simplify view visibility changes with extension functions",
         author = Author("dev-$index", "KotlinDev", "https://picsum.photos/50/50?random=$index"),
-        stars = Random.nextInt(10, 500)
+        stars = Random.nextInt(10, 500),
     )
 
     private fun createDeveloperTip(index: Int) = DeveloperTip(
@@ -238,9 +241,9 @@ class MainViewModel : ViewModel() {
         author = Author(
             "tip-author-$index",
             "ProDev",
-            "https://picsum.photos/50/50?random=tip$index"
+            "https://picsum.photos/50/50?random=tip$index",
         ),
-        category = "Best Practices"
+        category = "Best Practices",
     )
 
     private fun createTrendingTopics() = TrendingTopics(
@@ -252,8 +255,8 @@ class MainViewModel : ViewModel() {
             Topic("2", "KMM", 1823, TrendDirection.UP),
             Topic("3", "Coroutines", 1567, TrendDirection.STABLE),
             Topic("4", "Flow", 982, TrendDirection.UP),
-            Topic("5", "Hilt", 743, TrendDirection.DOWN)
-        )
+            Topic("5", "Hilt", 743, TrendDirection.DOWN),
+        ),
     )
 
     private fun createNewsletterCard() = NewsletterCard(
@@ -264,8 +267,8 @@ class MainViewModel : ViewModel() {
         benefits = listOf(
             "Latest Android updates",
             "Code snippets & tutorials",
-            "Community highlights"
-        )
+            "Community highlights",
+        ),
     )
 
     private fun createNativeAd(page: Int) = NativeAd(
@@ -275,7 +278,7 @@ class MainViewModel : ViewModel() {
         description = "The latest Android Studio with improved performance",
         ctaText = "Download Now",
         imageUrl = "https://picsum.photos/400/200?random=ad$page",
-        advertiser = "Google"
+        advertiser = "Google",
     )
 
     companion object {
@@ -289,7 +292,7 @@ class MainViewModel : ViewModel() {
             "Dependency Injection with Hilt",
             "Navigation Component Best Practices",
             "Material Design 3 Implementation",
-            "Android 14 New Features"
+            "Android 14 New Features",
         )
 
         private val authorNames = listOf(
@@ -297,7 +300,7 @@ class MainViewModel : ViewModel() {
             "Mike Chen",
             "Emma Wilson",
             "Carlos Rodriguez",
-            "Lisa Park"
+            "Lisa Park",
         )
 
         private val developerTips = listOf(
@@ -305,7 +308,7 @@ class MainViewModel : ViewModel() {
             "🚀 Leverage Kotlin's scope functions for cleaner code",
             "🔧 Always test your app on different screen sizes",
             "📱 Implement proper error handling in coroutines",
-            "⚡ Use lazy initialization for expensive objects"
+            "⚡ Use lazy initialization for expensive objects",
         )
     }
 }

@@ -24,31 +24,31 @@ open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerVie
      */
     constructor(
         diffCallback: DiffUtil.ItemCallback<T>,
-        vararg delegates: AdapterDelegate<List<T>>
+        vararg delegates: AdapterDelegate<List<T>>,
     ) : this(AdapterDelegatesManager(), diffCallback) {
         delegates.forEach { delegatesManager.addDelegate(it) }
     }
 
     constructor(diffCallback: DiffUtil.ItemCallback<T>) : this(
         AdapterDelegatesManager(),
-        diffCallback
+        diffCallback,
     )
 
     constructor(
         delegatesManager: AdapterDelegatesManager<List<T>>,
-        diffCallback: DiffUtil.ItemCallback<T>
+        diffCallback: DiffUtil.ItemCallback<T>,
     ) : super(diffCallback) {
         this.delegatesManager = delegatesManager
     }
 
     constructor(config: AsyncDifferConfig<T>) : this(
         AdapterDelegatesManager(),
-        config
+        config,
     )
 
     constructor(
         delegatesManager: AdapterDelegatesManager<List<T>>,
-        config: AsyncDifferConfig<T>
+        config: AsyncDifferConfig<T>,
     ) : super(config) {
         this.delegatesManager = delegatesManager
     }
@@ -62,11 +62,7 @@ open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerVie
         delegatesManager.onBindViewHolder(currentList, position, holder, null)
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
         getItem(position) // Internally triggers loading items around the given position
         delegatesManager.onBindViewHolder(currentList, position, holder, payloads)
     }

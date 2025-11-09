@@ -15,14 +15,10 @@ import com.hannesdorfmann.adapterdelegates4.sample.model.*
 
 // Featured Article Delegate
 class FeaturedArticleDelegate(
-    private val onItemClick: (FeaturedArticle) -> Unit
+    private val onItemClick: (FeaturedArticle) -> Unit,
 ) : AbsListItemAdapterDelegate<FeaturedArticle, ContentItem, FeaturedArticleDelegate.ViewHolder>() {
 
-    override fun isForViewType(
-        item: ContentItem,
-        items: List<ContentItem>,
-        position: Int
-    ): Boolean {
+    override fun isForViewType(item: ContentItem, items: List<ContentItem>, position: Int): Boolean {
         return item is FeaturedArticle
     }
 
@@ -30,7 +26,7 @@ class FeaturedArticleDelegate(
         val layout = LinearLayout(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
             )
             orientation = LinearLayout.VERTICAL
             setPadding(32, 32, 32, 32)
@@ -64,20 +60,16 @@ class FeaturedArticleDelegate(
     class ViewHolder(
         view: ViewGroup,
         val title: TextView,
-        val subtitle: TextView
+        val subtitle: TextView,
     ) : RecyclerView.ViewHolder(view)
 }
 
 // Article Delegate
 class ArticleDelegate(
-    private val onItemClick: (Article) -> Unit
+    private val onItemClick: (Article) -> Unit,
 ) : AbsListItemAdapterDelegate<Article, ContentItem, ArticleDelegate.ViewHolder>() {
 
-    override fun isForViewType(
-        item: ContentItem,
-        items: List<ContentItem>,
-        position: Int
-    ): Boolean {
+    override fun isForViewType(item: ContentItem, items: List<ContentItem>, position: Int): Boolean {
         return item is Article
     }
 
@@ -85,7 +77,7 @@ class ArticleDelegate(
         val layout = LinearLayout(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
             )
             orientation = LinearLayout.VERTICAL
             setPadding(32, 16, 32, 16)
@@ -118,7 +110,7 @@ class ArticleDelegate(
     class ViewHolder(
         view: ViewGroup,
         val title: TextView,
-        val summary: TextView
+        val summary: TextView,
     ) : RecyclerView.ViewHolder(view)
 }
 
@@ -126,11 +118,7 @@ class ArticleDelegate(
 class SectionHeaderDelegate :
     AbsListItemAdapterDelegate<SectionHeader, ContentItem, SectionHeaderDelegate.ViewHolder>() {
 
-    override fun isForViewType(
-        item: ContentItem,
-        items: List<ContentItem>,
-        position: Int
-    ): Boolean {
+    override fun isForViewType(item: ContentItem, items: List<ContentItem>, position: Int): Boolean {
         return item is SectionHeader
     }
 
@@ -138,7 +126,7 @@ class SectionHeaderDelegate :
         val textView = TextView(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
             )
             textSize = 18f
             setTextColor(Color.BLACK)
@@ -159,11 +147,7 @@ class SectionHeaderDelegate :
 class LoadingDelegate :
     AbsListItemAdapterDelegate<LoadingItem, ContentItem, LoadingDelegate.ViewHolder>() {
 
-    override fun isForViewType(
-        item: ContentItem,
-        items: List<ContentItem>,
-        position: Int
-    ): Boolean {
+    override fun isForViewType(item: ContentItem, items: List<ContentItem>, position: Int): Boolean {
         return item is LoadingItem
     }
 
@@ -171,7 +155,7 @@ class LoadingDelegate :
         val textView = TextView(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                200
+                200,
             )
             text = "Loading..."
             gravity = Gravity.CENTER
@@ -190,14 +174,10 @@ class LoadingDelegate :
 
 // Error Delegate
 class ErrorDelegate(
-    private val onRetryClick: () -> Unit
+    private val onRetryClick: () -> Unit,
 ) : AbsListItemAdapterDelegate<ErrorItem, ContentItem, ErrorDelegate.ViewHolder>() {
 
-    override fun isForViewType(
-        item: ContentItem,
-        items: List<ContentItem>,
-        position: Int
-    ): Boolean {
+    override fun isForViewType(item: ContentItem, items: List<ContentItem>, position: Int): Boolean {
         return item is ErrorItem
     }
 
@@ -205,7 +185,7 @@ class ErrorDelegate(
         val layout = LinearLayout(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
             )
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
@@ -242,6 +222,6 @@ class ErrorDelegate(
     class ViewHolder(
         view: ViewGroup,
         val message: TextView,
-        val retryButton: TextView
+        val retryButton: TextView,
     ) : RecyclerView.ViewHolder(view)
 }

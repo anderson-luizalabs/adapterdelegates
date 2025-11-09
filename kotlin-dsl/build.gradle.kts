@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.maven.publish)
     alias(libs.plugins.kover)
 }
 
@@ -46,7 +45,7 @@ android {
 
 dependencies {
     api(project(":library"))
-    implementation libs.kotlin.stdlib
+    implementation(libs.kotlin.stdlib)
 
-    testImplementation libs.bundles.testing.unit
+    testImplementation(libs.bundles.testing.unit)
 }

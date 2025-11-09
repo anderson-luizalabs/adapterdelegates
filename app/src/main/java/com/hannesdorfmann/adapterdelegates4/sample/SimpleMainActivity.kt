@@ -38,7 +38,7 @@ class SimpleMainActivity : AppCompatActivity() {
                 left = systemBars.left,
                 top = systemBars.top,
                 right = systemBars.right,
-                bottom = systemBars.bottom
+                bottom = systemBars.bottom,
             )
             insets
         }
@@ -68,7 +68,7 @@ class SimpleMainActivity : AppCompatActivity() {
             LoadingDelegate(),
             ErrorDelegate {
                 viewModel.retry()
-            }
+            },
         )
 
         recyclerView.apply {

@@ -24,19 +24,16 @@ subprojects {
                         "ktlint_standard_filename" to "disabled"
                     )
                 )
-            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
         }
 
         format("kts") {
             target("**/*.kts")
             targetExclude("**/build/**/*.kts")
-            licenseHeaderFile(rootProject.file("spotless/copyright.kt"), "(^(?![\\/ ]\\**).*\$)")
         }
 
         format("xml") {
             target("**/*.xml")
             targetExclude("**/build/**/*.xml")
-            licenseHeaderFile(rootProject.file("spotless/copyright.xml"), "(<[^!?])")
         }
     }
 }

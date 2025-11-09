@@ -25,7 +25,7 @@ data class FeaturedArticle(
     val category: Category,
     val isPremium: Boolean = false,
     val likes: Int = 0,
-    val isBookmarked: Boolean = false
+    val isBookmarked: Boolean = false,
 ) : ContentItem()
 
 /**
@@ -41,7 +41,7 @@ data class Article(
     val readTimeMinutes: Int,
     val category: Category,
     val tags: List<String> = emptyList(),
-    val viewCount: Int = 0
+    val viewCount: Int = 0,
 ) : ContentItem()
 
 /**
@@ -57,7 +57,7 @@ data class VideoTutorial(
     val level: SkillLevel,
     val technology: String,
     val isCompleted: Boolean = false,
-    val progress: Float = 0f
+    val progress: Float = 0f,
 ) : ContentItem()
 
 /**
@@ -72,7 +72,7 @@ data class CodeSnippet(
     val description: String,
     val author: Author,
     val stars: Int = 0,
-    val isStarred: Boolean = false
+    val isStarred: Boolean = false,
 ) : ContentItem()
 
 /**
@@ -84,7 +84,7 @@ data class DeveloperTip(
     val content: String,
     val author: Author,
     val category: String,
-    @DrawableRes val iconRes: Int? = null
+    @DrawableRes val iconRes: Int? = null,
 ) : ContentItem()
 
 /**
@@ -94,7 +94,7 @@ data class TrendingTopics(
     override val id: String,
     override val timestamp: Date,
     val title: String,
-    val topics: List<Topic>
+    val topics: List<Topic>,
 ) : ContentItem()
 
 /**
@@ -105,7 +105,7 @@ data class NewsletterCard(
     override val timestamp: Date,
     val title: String,
     val description: String,
-    val benefits: List<String>
+    val benefits: List<String>,
 ) : ContentItem()
 
 /**
@@ -113,7 +113,7 @@ data class NewsletterCard(
  */
 data class LoadingItem(
     override val id: String = "loading",
-    override val timestamp: Date = Date()
+    override val timestamp: Date = Date(),
 ) : ContentItem()
 
 /**
@@ -123,7 +123,7 @@ data class ErrorItem(
     override val id: String = "error",
     override val timestamp: Date = Date(),
     val message: String,
-    val canRetry: Boolean = true
+    val canRetry: Boolean = true,
 ) : ContentItem()
 
 /**
@@ -134,7 +134,7 @@ data class EmptyItem(
     override val timestamp: Date = Date(),
     val title: String,
     val message: String,
-    @DrawableRes val illustrationRes: Int? = null
+    @DrawableRes val illustrationRes: Int? = null,
 ) : ContentItem()
 
 /**
@@ -144,7 +144,7 @@ data class SectionHeader(
     override val id: String,
     override val timestamp: Date = Date(),
     val title: String,
-    val actionText: String? = null
+    val actionText: String? = null,
 ) : ContentItem()
 
 // Supporting data classes
@@ -154,7 +154,7 @@ data class Author(
     val name: String,
     val avatarUrl: String,
     val bio: String? = null,
-    val isVerified: Boolean = false
+    val isVerified: Boolean = false,
 )
 
 data class Topic(
@@ -162,23 +162,44 @@ data class Topic(
     val name: String,
     val count: Int,
     val trending: TrendDirection = TrendDirection.STABLE,
-    @DrawableRes val iconRes: Int? = null
+    @DrawableRes val iconRes: Int? = null,
 )
 
 enum class Category {
-    MOBILE, WEB, AI_ML, CLOUD, DEVOPS, SECURITY, BLOCKCHAIN, IOT, GAMING
+    MOBILE,
+    WEB,
+    AI_ML,
+    CLOUD,
+    DEVOPS,
+    SECURITY,
+    BLOCKCHAIN,
+    IOT,
+    GAMING,
 }
 
 enum class SkillLevel {
-    BEGINNER, INTERMEDIATE, ADVANCED, EXPERT
+    BEGINNER,
+    INTERMEDIATE,
+    ADVANCED,
+    EXPERT,
 }
 
 enum class ProgrammingLanguage {
-    KOTLIN, JAVA, SWIFT, JAVASCRIPT, TYPESCRIPT, PYTHON, RUST, GO, DART
+    KOTLIN,
+    JAVA,
+    SWIFT,
+    JAVASCRIPT,
+    TYPESCRIPT,
+    PYTHON,
+    RUST,
+    GO,
+    DART,
 }
 
 enum class TrendDirection {
-    UP, DOWN, STABLE
+    UP,
+    DOWN,
+    STABLE,
 }
 
 // Advertisement for demonstrating different view types
@@ -189,5 +210,5 @@ data class NativeAd(
     val description: String,
     val ctaText: String,
     val imageUrl: String,
-    val advertiser: String
+    val advertiser: String,
 ) : ContentItem()

@@ -6,10 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    namespace = "com.hannesdorfmann.adapterdelegates4"
+    compileSdk = 35
 
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,8 +42,6 @@ android {
             isIncludeAndroidResources = true
         }
     }
-
-    namespace = "com.hannesdorfmann.adapterdelegates4"
 }
 
 dependencies {
