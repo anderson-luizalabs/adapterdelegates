@@ -22,7 +22,7 @@ androidx-swiperefreshlayout = "1.2.0-alpha01"
 androidx-activity = "1.9.3"
 
 # Image Loading
-glide = "4.17.0"
+glide = "4.16.0"
 
 # Testing
 junit = "4.13.2"
