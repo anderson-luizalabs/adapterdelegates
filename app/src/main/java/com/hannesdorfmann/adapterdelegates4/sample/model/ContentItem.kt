@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4.sample.model
 
 import androidx.annotation.DrawableRes

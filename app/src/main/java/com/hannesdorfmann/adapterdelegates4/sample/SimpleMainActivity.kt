@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4.sample
 
 import android.os.Bundle
@@ -18,7 +21,6 @@ import com.hannesdorfmann.adapterdelegates4.sample.viewmodel.MainViewModel
  * Simple MainActivity that works without custom layouts
  */
 class SimpleMainActivity : AppCompatActivity() {
-
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ListDelegationAdapter<List<ContentItem>>
@@ -57,19 +59,20 @@ class SimpleMainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         // Create adapter with delegates
-        adapter = ListDelegationAdapter(
-            FeaturedArticleDelegate { article ->
-                Toast.makeText(this, "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
-            },
-            ArticleDelegate { article ->
-                Toast.makeText(this, "Article: ${article.title}", Toast.LENGTH_SHORT).show()
-            },
-            SectionHeaderDelegate(),
-            LoadingDelegate(),
-            ErrorDelegate {
-                viewModel.retry()
-            },
-        )
+        adapter =
+            ListDelegationAdapter(
+                FeaturedArticleDelegate { article ->
+                    Toast.makeText(this, "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
+                },
+                ArticleDelegate { article ->
+                    Toast.makeText(this, "Article: ${article.title}", Toast.LENGTH_SHORT).show()
+                },
+                SectionHeaderDelegate(),
+                LoadingDelegate(),
+                ErrorDelegate {
+                    viewModel.retry()
+                },
+            )
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@SimpleMainActivity)

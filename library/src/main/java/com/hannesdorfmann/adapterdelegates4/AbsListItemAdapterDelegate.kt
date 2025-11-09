@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4
 
 import android.view.ViewGroup
@@ -15,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class AbsListItemAdapterDelegate<I : T, T, VH : RecyclerView.ViewHolder> :
     AdapterDelegate<List<T>>() {
-
-    final override fun isForViewType(items: List<T>, position: Int): Boolean {
+    final override fun isForViewType(
+        items: List<T>,
+        position: Int,
+    ): Boolean {
         return isForViewType(items[position], items, position)
     }
 
@@ -24,7 +29,7 @@ abstract class AbsListItemAdapterDelegate<I : T, T, VH : RecyclerView.ViewHolder
         items: List<T>,
         position: Int,
         holder: RecyclerView.ViewHolder,
-        payloads: List<Any>
+        payloads: List<Any>,
     ) {
         @Suppress("UNCHECKED_CAST")
         onBindViewHolder(items[position] as I, holder as VH, payloads)
@@ -38,7 +43,11 @@ abstract class AbsListItemAdapterDelegate<I : T, T, VH : RecyclerView.ViewHolder
      * @param position The item's position in the dataset
      * @return true if this AdapterDelegate is responsible, otherwise false
      */
-    protected abstract fun isForViewType(item: T, items: List<T>, position: Int): Boolean
+    protected abstract fun isForViewType(
+        item: T,
+        items: List<T>,
+        position: Int,
+    ): Boolean
 
     /**
      * Creates the [RecyclerView.ViewHolder] for the given data source item.
@@ -55,5 +64,9 @@ abstract class AbsListItemAdapterDelegate<I : T, T, VH : RecyclerView.ViewHolder
      * @param holder The ViewHolder
      * @param payloads The payloads
      */
-    protected abstract fun onBindViewHolder(item: I, holder: VH, payloads: List<Any>)
+    protected abstract fun onBindViewHolder(
+        item: I,
+        holder: VH,
+        payloads: List<Any>,
+    )
 }

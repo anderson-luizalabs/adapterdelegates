@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4.paging
 
 import android.view.ViewGroup
@@ -14,7 +17,6 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
  * @param T The type of items in the PagedList
  */
 open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerView.ViewHolder> {
-
     protected val delegatesManager: AdapterDelegatesManager<List<T>>
 
     /**

@@ -1,0 +1,35 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+tab_width = 4
+trim_trailing_whitespace = true
+
+[*.kt]
+max_line_length = 120
+ktlint_standard_no-wildcard-imports = disabled
+ktlint_standard_filename = disabled
+ktlint_standard_no-consecutive-comments = disabled
+ktlint_standard_property-naming = disabled
+ktlint_standard_max-line-length = disabled
+
+[*Test*.kt]
+max_line_length = 150
+ktlint_standard_max-line-length = disabled
+
+[*.kts]
+max_line_length = 120
+
+[*.{xml,html}]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+# Disable problematic ktlint rules
+ktlint_disabled_rules = no-consecutive-comments

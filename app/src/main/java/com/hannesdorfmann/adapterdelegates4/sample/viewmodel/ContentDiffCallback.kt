@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4.sample.viewmodel
 
 import androidx.recyclerview.widget.DiffUtil
@@ -7,13 +10,18 @@ import com.hannesdorfmann.adapterdelegates4.sample.model.*
  * DiffUtil callback for efficient list updates
  */
 class ContentDiffCallback : DiffUtil.ItemCallback<ContentItem>() {
-
-    override fun areItemsTheSame(oldItem: ContentItem, newItem: ContentItem): Boolean {
+    override fun areItemsTheSame(
+        oldItem: ContentItem,
+        newItem: ContentItem,
+    ): Boolean {
         // Compare by ID
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: ContentItem, newItem: ContentItem): Boolean {
+    override fun areContentsTheSame(
+        oldItem: ContentItem,
+        newItem: ContentItem,
+    ): Boolean {
         // Compare content based on type
         return when {
             oldItem is FeaturedArticle && newItem is FeaturedArticle -> {
@@ -68,7 +76,10 @@ class ContentDiffCallback : DiffUtil.ItemCallback<ContentItem>() {
         }
     }
 
-    override fun getChangePayload(oldItem: ContentItem, newItem: ContentItem): Any? {
+    override fun getChangePayload(
+        oldItem: ContentItem,
+        newItem: ContentItem,
+    ): Any? {
         // Return specific change payload for partial updates
         return when {
             oldItem is FeaturedArticle && newItem is FeaturedArticle -> {

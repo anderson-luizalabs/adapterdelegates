@@ -143,7 +143,7 @@ fun featuredArticleDelegate(
     { inflater, parent -> ItemFeaturedArticleBinding.inflate(inflater, parent, false) }
 ) {
     binding.root.setOnClickListener { onItemClick(item) }
-    
+
     bind {
         binding.titleText.text = item.title
         // ... more bindings
@@ -226,19 +226,19 @@ dependencies {
     implementation(project(":library"))
     implementation(project(":kotlin-dsl"))
     implementation(project(":kotlin-dsl-viewbinding"))
-    
+
     // AndroidX
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.recyclerview)
     implementation(libs.material)
-    
+
     // Architecture
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
-    
+
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-    
+
     // Image Loading
     implementation(libs.glide)
 }

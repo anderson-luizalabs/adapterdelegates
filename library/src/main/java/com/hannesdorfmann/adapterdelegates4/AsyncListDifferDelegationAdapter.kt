@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4
 
 import android.view.ViewGroup
@@ -16,18 +19,17 @@ import androidx.recyclerview.widget.RecyclerView
  * @author Hannes Dorfmann
  */
 open class AsyncListDifferDelegationAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     protected val delegatesManager: AdapterDelegatesManager<List<T>>
     protected val differ: AsyncListDiffer<T>
 
     constructor(diffCallback: DiffUtil.ItemCallback<T>) : this(
         diffCallback,
-        AdapterDelegatesManager()
+        AdapterDelegatesManager(),
     )
 
     constructor(
         diffCallback: DiffUtil.ItemCallback<T>,
-        delegatesManager: AdapterDelegatesManager<List<T>>
+        delegatesManager: AdapterDelegatesManager<List<T>>,
     ) {
         this.differ = AsyncListDiffer(this, diffCallback)
         this.delegatesManager = delegatesManager
@@ -35,7 +37,7 @@ open class AsyncListDifferDelegationAdapter<T> : RecyclerView.Adapter<RecyclerVi
 
     constructor(
         differConfig: AsyncDifferConfig<T>,
-        delegatesManager: AdapterDelegatesManager<List<T>>
+        delegatesManager: AdapterDelegatesManager<List<T>>,
     ) {
         this.differ = AsyncListDiffer(AdapterListUpdateCallback(this), differConfig)
         this.delegatesManager = delegatesManager
@@ -48,7 +50,7 @@ open class AsyncListDifferDelegationAdapter<T> : RecyclerView.Adapter<RecyclerVi
      */
     constructor(
         diffCallback: DiffUtil.ItemCallback<T>,
-        vararg delegates: AdapterDelegate<List<T>>
+        vararg delegates: AdapterDelegate<List<T>>,
     ) {
         this.differ = AsyncListDiffer(this, diffCallback)
         this.delegatesManager = AdapterDelegatesManager(*delegates)
@@ -56,7 +58,7 @@ open class AsyncListDifferDelegationAdapter<T> : RecyclerView.Adapter<RecyclerVi
 
     constructor(
         differConfig: AsyncDifferConfig<T>,
-        vararg delegates: AdapterDelegate<List<T>>
+        vararg delegates: AdapterDelegate<List<T>>,
     ) {
         this.differ = AsyncListDiffer(AdapterListUpdateCallback(this), differConfig)
         this.delegatesManager = AdapterDelegatesManager(*delegates)
@@ -78,18 +80,24 @@ open class AsyncListDifferDelegationAdapter<T> : RecyclerView.Adapter<RecyclerVi
         return delegatesManager.getItemViewType(differ.currentList, position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         return delegatesManager.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         delegatesManager.onBindViewHolder(differ.currentList, position, holder, null)
     }
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: MutableList<Any>
+        payloads: MutableList<Any>,
     ) {
         delegatesManager.onBindViewHolder(differ.currentList, position, holder, payloads)
     }

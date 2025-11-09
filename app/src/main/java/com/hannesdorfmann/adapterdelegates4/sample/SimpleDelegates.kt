@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4.sample
 
 import android.graphics.Color
@@ -13,7 +16,9 @@ import com.hannesdorfmann.adapterdelegates4.sample.model.*
  * Simple delegates without custom layouts - creates views programmatically
  */
 
-// Featured Article Delegate
+/**
+ * Featured Article Delegate
+ */
 class FeaturedArticleDelegate(
     private val onItemClick: (FeaturedArticle) -> Unit,
 ) : AbsListItemAdapterDelegate<FeaturedArticle, ContentItem, FeaturedArticleDelegate.ViewHolder>() {
@@ -64,7 +69,9 @@ class FeaturedArticleDelegate(
     ) : RecyclerView.ViewHolder(view)
 }
 
-// Article Delegate
+/**
+ * Article Delegate
+ */
 class ArticleDelegate(
     private val onItemClick: (Article) -> Unit,
 ) : AbsListItemAdapterDelegate<Article, ContentItem, ArticleDelegate.ViewHolder>() {

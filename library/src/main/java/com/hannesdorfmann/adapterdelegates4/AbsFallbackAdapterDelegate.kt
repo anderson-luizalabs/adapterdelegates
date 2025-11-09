@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2025 LuizaLabs.
+ */
 package com.hannesdorfmann.adapterdelegates4
 
 /**
@@ -7,9 +10,11 @@ package com.hannesdorfmann.adapterdelegates4
  * @since 1.1.0
  */
 abstract class AbsFallbackAdapterDelegate<T> : AdapterDelegate<T>() {
-
     /**
      * Not needed, because never called for fallback adapter delegates.
      */
-    final override fun isForViewType(items: T, position: Int): Boolean = true
+    final override fun isForViewType(
+        items: T,
+        position: Int,
+    ): Boolean = true
 }

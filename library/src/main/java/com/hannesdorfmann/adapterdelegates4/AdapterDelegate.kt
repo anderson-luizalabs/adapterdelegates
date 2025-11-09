@@ -1,19 +1,6 @@
 /*
- * Copyright (c) 2015 Hannes Dorfmann.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Copyright (c) 2025 LuizaLabs.
  */
-
 package com.hannesdorfmann.adapterdelegates4
 
 import android.view.ViewGroup
@@ -30,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
  * @since 1.0
  */
 abstract class AdapterDelegate<T> {
-
     /**
      * Called to determine whether this AdapterDelegate is responsible for the given data element.
      *
@@ -39,7 +25,10 @@ abstract class AdapterDelegate<T> {
      * @return true if this item is responsible, otherwise false
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    abstract fun isForViewType(items: T, position: Int): Boolean
+    abstract fun isForViewType(
+        items: T,
+        position: Int,
+    ): Boolean
 
     /**
      * Creates the [RecyclerView.ViewHolder] for the given data source item
@@ -63,7 +52,7 @@ abstract class AdapterDelegate<T> {
         items: T,
         position: Int,
         holder: RecyclerView.ViewHolder,
-        payloads: List<Any>
+        payloads: List<Any>,
     )
 
     /**

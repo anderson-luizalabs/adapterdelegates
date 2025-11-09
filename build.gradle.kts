@@ -5,38 +5,39 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.maven.publish) apply false
     alias(libs.plugins.kover) apply false
-    // Spotless temporarily disabled - needs ktlint configuration
-    // alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.spotless) apply false
 }
 
 subprojects {
-    // apply(plugin = "com.diffplug.spotless")
+    apply(plugin = "com.diffplug.spotless")
 
-    // configure<com.diffplug.gradle.spotless.SpotlessExtension> {
-    //     kotlin {
-    //         target("**/*.kt")
-    //         targetExclude("**/build/**/*.kt")
-    //         ktlint("1.0.1")
-    //             .editorConfigOverride(
-    //                 mapOf(
-    //                     "indent_size" to "4",
-    //                     "max_line_length" to "120",
-    //                     "ktlint_standard_no-wildcard-imports" to "disabled",
-    //                     "ktlint_standard_filename" to "disabled"
-    //                 )
-    //             )
-    //     }
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("**/build/**/*.kt", "**/test/**/*.kt", "**/*Test.kt")
+            ktlint("1.0.1")
+                .setEditorConfigPath("$rootDir/.editorconfig")
+                .editorConfigOverride(
+                    mapOf(
+                        "ktlint_disabled_rules" to "no-consecutive-comments,max-line-length,property-naming"
+                    )
+                )
+            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+        }
 
-    //     format("kts") {
-    //         target("**/*.kts")
-    //         targetExclude("**/build/**/*.kts")
-    //     }
+        kotlinGradle {
+            target("**/*.kts")
+            targetExclude("**/build/**/*.kts")
+            ktlint("1.0.1")
+                .setEditorConfigPath("$rootDir/.editorconfig")
+        }
 
-    //     format("xml") {
-    //         target("**/*.xml")
-    //         targetExclude("**/build/**/*.xml")
-    //     }
-    // }
+        format("xml") {
+            target("**/*.xml")
+            targetExclude("**/build/**/*.xml", "**/res/**/*.xml")
+            licenseHeaderFile(rootProject.file("spotless/copyright.xml"), "(<[^!?])")
+        }
+    }
 }
 
 tasks.register("clean", Delete::class) {
