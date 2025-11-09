@@ -1,8 +1,8 @@
 [versions]
 # Build
-agp = "8.8.0"
+agp = "8.13.0"
 kotlin = "2.1.0"
-kover = "0.8.3"
+kover = "0.9.3"
 mavenPublish = "0.30.0"
 spotless = "7.0.0.BETA4"
 
