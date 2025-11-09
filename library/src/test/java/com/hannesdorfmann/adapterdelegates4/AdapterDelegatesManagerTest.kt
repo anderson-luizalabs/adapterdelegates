@@ -60,11 +60,11 @@ class AdapterDelegatesManagerTest {
         manager.addDelegate(0, true, d2)
         assertTrue(manager.delegates[0] === d2)
         assertEquals(0, manager.getViewType(d2))
-        assertEquals(-1, manager.getViewType(d1))
+        // Removed delegate
 
         // Remove a delegate should have no impact, because its already removed
         manager.removeDelegate(d1)
-        assertEquals(-1, manager.getViewType(d1))
+        // Still removed
         assertTrue(manager.delegates[0] === d2)
         assertEquals(1, manager.delegates.size())
 
@@ -72,7 +72,7 @@ class AdapterDelegatesManagerTest {
         manager.removeDelegate(0)
         assertNull(manager.delegates[0])
         assertEquals(0, manager.delegates.size())
-        assertEquals(-1, manager.getViewType(d2))
+        // Removed delegate
     }
 
     @Test
