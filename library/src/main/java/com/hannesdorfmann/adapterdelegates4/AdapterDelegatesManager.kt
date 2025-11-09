@@ -90,7 +90,7 @@ open class AdapterDelegatesManager<T> {
     ): AdapterDelegatesManager<T> {
         if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
             throw IllegalArgumentException(
-                "ViewType $viewType is reserved for fallback adapter delegate " +
+                "The view type = $FALLBACK_DELEGATE_VIEW_TYPE is reserved for fallback adapter delegate " +
                     "(see setFallbackDelegate() ). Please use another view type.",
             )
         }
@@ -241,10 +241,7 @@ open class AdapterDelegatesManager<T> {
             if (fallbackDelegate === delegate) {
                 FALLBACK_DELEGATE_VIEW_TYPE
             } else {
-                throw IllegalArgumentException(
-                    "No view type found for delegate $delegate. " +
-                        "Delegate is not registered",
-                )
+                -1
             }
         } else {
             delegates.keyAt(index)
@@ -255,10 +252,12 @@ open class AdapterDelegatesManager<T> {
      * Get the delegate for a given view type.
      */
     fun getDelegateForViewType(viewType: Int): AdapterDelegate<T>? {
-        return if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
+        val delegate = if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
             fallbackDelegate
         } else {
             delegates.get(viewType)
         }
+
+        return delegate ?: fallbackDelegate
     }
 }
