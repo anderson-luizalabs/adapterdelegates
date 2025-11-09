@@ -38,9 +38,12 @@ open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerVie
     )
 
     constructor(
-        delegatesManager: AdapterDelegatesManager<List<T>>,
+        delegatesManager: AdapterDelegatesManager<List<T>>?,
         diffCallback: DiffUtil.ItemCallback<T>,
     ) : super(diffCallback) {
+        if (delegatesManager == null) {
+            throw NullPointerException("AdapterDelegatesManager is null")
+        }
         this.delegatesManager = delegatesManager
     }
 
@@ -50,9 +53,12 @@ open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerVie
     )
 
     constructor(
-        delegatesManager: AdapterDelegatesManager<List<T>>,
+        delegatesManager: AdapterDelegatesManager<List<T>>?,
         config: AsyncDifferConfig<T>,
     ) : super(config) {
+        if (delegatesManager == null) {
+            throw NullPointerException("AdapterDelegatesManager is null")
+        }
         this.delegatesManager = delegatesManager
     }
 

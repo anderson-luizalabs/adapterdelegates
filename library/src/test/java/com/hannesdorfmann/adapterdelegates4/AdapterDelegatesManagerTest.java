@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -419,7 +420,7 @@ public class AdapterDelegatesManagerTest {
             }
 
             // Test bind viewHolder
-            manager.onBindViewHolder(items, i, vh);
+            manager.onBindViewHolder(items, i, vh, Collections.emptyList());
             for (SpyableAdapterDelegate d : delegates) {
                 if (d == expectedDelegate) {
                     Assert.assertTrue(d.onBindViewHolderCalled);
@@ -525,7 +526,7 @@ public class AdapterDelegatesManagerTest {
         Assert.assertFalse(otherDelegate.onCreateViewHolderCalled);
 
         // Test bind viewHolder
-        delegatesManager.onBindViewHolder(items, itemPosition, vh);
+        delegatesManager.onBindViewHolder(items, itemPosition, vh, Collections.emptyList());
         Assert.assertTrue(fallbackDelegate.onBindViewHolderCalled);
         Assert.assertFalse(otherDelegate.onBindViewHolderCalled);
     }

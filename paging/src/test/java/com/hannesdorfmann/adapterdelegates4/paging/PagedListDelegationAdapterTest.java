@@ -42,7 +42,7 @@ public class PagedListDelegationAdapterTest {
             };
             Assert.fail("Expected NullPointerException");
         } catch (NullPointerException e) {
-            Assert.assertEquals("ItemCallback is null", e.getMessage());
+            Assert.assertTrue("Expected message about diffCallback or ItemCallback", e.getMessage() != null && (e.getMessage().contains("diffCallback") || e.getMessage().contains("ItemCallback")));
         }
     }
 

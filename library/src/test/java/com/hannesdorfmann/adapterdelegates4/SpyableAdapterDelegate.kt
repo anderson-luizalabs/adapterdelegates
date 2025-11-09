@@ -13,6 +13,7 @@ import org.robolectric.RuntimeEnvironment
  * @author Hannes Dorfmann
  */
 class SpyableAdapterDelegate<T>(
+    @JvmField
     val viewType: Int
 ) : AdapterDelegate<T>() {
 
@@ -29,7 +30,7 @@ class SpyableAdapterDelegate<T>(
     var onViewDetachedFromWindowCalled = false
 
     @JvmField
-    var onViewAttachedToWindowCalled = false
+    var onViewAtachedToWindowCalled = false
 
     @JvmField
     var onViewRecycledCalled = false
@@ -60,7 +61,7 @@ class SpyableAdapterDelegate<T>(
         onCreateViewHolderCalled = false
         onBindViewHolderCalled = false
         onViewDetachedFromWindowCalled = false
-        onViewAttachedToWindowCalled = false
+        onViewAtachedToWindowCalled = false
         onViewRecycledCalled = false
         onFailedToRecycleViewCalled = false
         onBindViewHolderPosition = -1
@@ -96,7 +97,7 @@ class SpyableAdapterDelegate<T>(
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
         super.onViewAttachedToWindow(holder)
-        onViewAttachedToWindowCalled = true
+        onViewAtachedToWindowCalled = true
     }
 
     override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
