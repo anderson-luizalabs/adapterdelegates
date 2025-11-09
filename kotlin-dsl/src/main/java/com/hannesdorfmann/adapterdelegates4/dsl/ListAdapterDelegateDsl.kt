@@ -38,17 +38,16 @@ inline fun <reified I : T, T : Any> adapterDelegate(
         LayoutInflater.from(parent.context).inflate(
             layout,
             parent,
-            false
+            false,
         )
     },
-    noinline block: AdapterDelegateViewHolder<I>.() -> Unit
+    noinline block: AdapterDelegateViewHolder<I>.() -> Unit,
 ): AdapterDelegate<List<T>> {
-
     return DslListAdapterDelegate(
         layout = layout,
         on = on,
         initializerBlock = block,
-        layoutInflater = layoutInflater
+        layoutInflater = layoutInflater,
     )
 }
 
@@ -61,25 +60,22 @@ internal class DslListAdapterDelegate<I : T, T : Any>(
     @LayoutRes private val layout: Int,
     private val on: (item: T, items: List<T>, position: Int) -> Boolean,
     private val initializerBlock: AdapterDelegateViewHolder<I>.() -> Unit,
-    private val layoutInflater: (parent: ViewGroup, layout: Int) -> View
+    private val layoutInflater: (parent: ViewGroup, layout: Int) -> View,
 ) : AbsListItemAdapterDelegate<I, T, AdapterDelegateViewHolder<I>>() {
 
     override fun isForViewType(item: T, items: List<T>, position: Int): Boolean = on(
-        item, items, position
+        item,
+        items,
+        position,
     )
 
-    override fun onCreateViewHolder(parent: ViewGroup): AdapterDelegateViewHolder<I> =
-        AdapterDelegateViewHolder<I>(
-            layoutInflater(parent, layout)
-        ).also {
-            initializerBlock(it)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup): AdapterDelegateViewHolder<I> = AdapterDelegateViewHolder<I>(
+        layoutInflater(parent, layout),
+    ).also {
+        initializerBlock(it)
+    }
 
-    override fun onBindViewHolder(
-        item: I,
-        holder: AdapterDelegateViewHolder<I>,
-        payloads: List<Any>
-    ) {
+    override fun onBindViewHolder(item: I, holder: AdapterDelegateViewHolder<I>, payloads: List<Any>) {
         holder._item = item
         holder._bind?.invoke(payloads) // It's ok to have an AdapterDelegate without binding block (i.e. static content)
     }
@@ -140,7 +136,7 @@ class AdapterDelegateViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
         get() = if (_item === Uninitialized) {
             throw IllegalArgumentException(
                 "Item has not been set yet. That is an internal issue. " +
-                    "Please report at https://github.com/sockeqwe/AdapterDelegates"
+                    "Please report at https://github.com/sockeqwe/AdapterDelegates",
             )
         } else {
             @Suppress("UNCHECKED_CAST")
@@ -301,7 +297,7 @@ class AdapterDelegateViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
         if (_onViewRecycled != null) {
             throw IllegalStateException(
                 "onViewRecycled { ... } is already defined. " +
-                    "Only one onViewRecycled { ... } is allowed."
+                    "Only one onViewRecycled { ... } is allowed.",
             )
         }
         _onViewRecycled = block
@@ -314,7 +310,7 @@ class AdapterDelegateViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
         if (_onFailedToRecycleView != null) {
             throw IllegalStateException(
                 "onFailedToRecycleView { ... } is already defined. " +
-                    "Only one onFailedToRecycleView { ... } is allowed."
+                    "Only one onFailedToRecycleView { ... } is allowed.",
             )
         }
         _onFailedToRecycleView = block
@@ -327,7 +323,7 @@ class AdapterDelegateViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
         if (_onViewAttachedToWindow != null) {
             throw IllegalStateException(
                 "onViewAttachedToWindow { ... } is already defined. " +
-                    "Only one onViewAttachedToWindow { ... } is allowed."
+                    "Only one onViewAttachedToWindow { ... } is allowed.",
             )
         }
         _onViewAttachedToWindow = block
@@ -340,7 +336,7 @@ class AdapterDelegateViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
         if (_onViewDetachedFromWindow != null) {
             throw IllegalStateException(
                 "onViewDetachedFromWindow { ... } is already defined. " +
-                    "Only one onViewDetachedFromWindow { ... } is allowed."
+                    "Only one onViewDetachedFromWindow { ... } is allowed.",
             )
         }
         _onViewDetachedFromWindow = block

@@ -26,25 +26,15 @@ abstract class AbsDelegationAdapter<T>(
      */
     constructor(vararg delegates: AdapterDelegate<T>) : this(AdapterDelegatesManager(*delegates))
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegatesManager.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         delegatesManager.onBindViewHolder(items, position, holder, null)
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: MutableList<Any>,
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
         delegatesManager.onBindViewHolder(items, position, holder, payloads)
     }
 

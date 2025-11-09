@@ -25,10 +25,7 @@ abstract class AdapterDelegate<T> {
      * @return true if this item is responsible, otherwise false
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    abstract fun isForViewType(
-        items: T,
-        position: Int,
-    ): Boolean
+    abstract fun isForViewType(items: T, position: Int): Boolean
 
     /**
      * Creates the [RecyclerView.ViewHolder] for the given data source item
@@ -48,12 +45,7 @@ abstract class AdapterDelegate<T> {
      * @param payloads A non-null list of merged payloads. Can be empty list if requires full update.
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    abstract fun onBindViewHolder(
-        items: T,
-        position: Int,
-        holder: RecyclerView.ViewHolder,
-        payloads: List<Any>,
-    )
+    abstract fun onBindViewHolder(items: T, position: Int, holder: RecyclerView.ViewHolder, payloads: List<Any>)
 
     /**
      * Called when a view created by this adapter has been recycled.

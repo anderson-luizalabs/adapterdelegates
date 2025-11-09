@@ -57,10 +57,7 @@ open class AdapterDelegatesManager<T> {
     /**
      * Adds an [AdapterDelegate] with option to allow replacing existing delegate.
      */
-    fun addDelegate(
-        delegate: AdapterDelegate<T>,
-        allowReplacingDelegate: Boolean,
-    ): AdapterDelegatesManager<T> {
+    fun addDelegate(delegate: AdapterDelegate<T>, allowReplacingDelegate: Boolean): AdapterDelegatesManager<T> {
         var viewType = delegates.size()
         while (delegates.get(viewType) != null) {
             viewType++
@@ -78,10 +75,7 @@ open class AdapterDelegatesManager<T> {
     /**
      * Adds an [AdapterDelegate] with a specific view type.
      */
-    fun addDelegate(
-        viewType: Int,
-        delegate: AdapterDelegate<T>,
-    ): AdapterDelegatesManager<T> {
+    fun addDelegate(viewType: Int, delegate: AdapterDelegate<T>): AdapterDelegatesManager<T> {
         return addDelegate(viewType, false, delegate)
     }
 
@@ -134,10 +128,7 @@ open class AdapterDelegatesManager<T> {
      * Get the view type for the given position.
      * Must be called from [RecyclerView.Adapter.getItemViewType]
      */
-    fun getItemViewType(
-        items: T?,
-        position: Int,
-    ): Int {
+    fun getItemViewType(items: T?, position: Int): Int {
         if (items == null) {
             throw NullPointerException("Items is null")
         }
@@ -163,10 +154,7 @@ open class AdapterDelegatesManager<T> {
      * Create ViewHolder.
      * Must be called from [RecyclerView.Adapter.onCreateViewHolder]
      */
-    fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): RecyclerView.ViewHolder {
+    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val delegate =
             getDelegateForViewType(viewType)
                 ?: throw NullPointerException("No AdapterDelegate added for ViewType $viewType")
@@ -185,12 +173,7 @@ open class AdapterDelegatesManager<T> {
      * Bind ViewHolder.
      * Must be called from [RecyclerView.Adapter.onBindViewHolder]
      */
-    fun onBindViewHolder(
-        items: T?,
-        position: Int,
-        viewHolder: RecyclerView.ViewHolder,
-        payloads: List<Any>?,
-    ) {
+    fun onBindViewHolder(items: T?, position: Int, viewHolder: RecyclerView.ViewHolder, payloads: List<Any>?) {
         if (items == null) {
             throw NullPointerException("Items is null")
         }

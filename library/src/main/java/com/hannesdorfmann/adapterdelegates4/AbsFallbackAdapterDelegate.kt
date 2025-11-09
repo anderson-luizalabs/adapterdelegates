@@ -13,8 +13,5 @@ abstract class AbsFallbackAdapterDelegate<T> : AdapterDelegate<T>() {
     /**
      * Not needed, because never called for fallback adapter delegates.
      */
-    final override fun isForViewType(
-        items: T,
-        position: Int,
-    ): Boolean = true
+    final override fun isForViewType(items: T, position: Int): Boolean = true
 }

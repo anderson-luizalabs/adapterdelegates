@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -36,42 +35,40 @@ inline fun <reified I : T, T : Any, V : ViewBinding> adapterDelegateViewBinding(
     noinline viewBinding: (layoutInflater: LayoutInflater, parent: ViewGroup) -> V,
     noinline on: (item: T, items: List<T>, position: Int) -> Boolean = { item, _, _ -> item is I },
     noinline layoutInflater: (parent: ViewGroup) -> LayoutInflater = { parent -> LayoutInflater.from(parent.context) },
-    noinline block: AdapterDelegateViewBindingViewHolder<I, V>.() -> Unit
+    noinline block: AdapterDelegateViewBindingViewHolder<I, V>.() -> Unit,
 ): AdapterDelegate<List<T>> {
-
     return DslViewBindingListAdapterDelegate(
         binding = viewBinding,
         on = on,
         initializerBlock = block,
-        layoutInflater = layoutInflater)
+        layoutInflater = layoutInflater,
+    )
 }
 
 @PublishedApi
 internal class DslViewBindingListAdapterDelegate<I : T, T : Any, V : ViewBinding>(
     private val binding: (layoutInflater: LayoutInflater, parent: ViewGroup) -> V,
     private val on: (item: T, items: List<T>, position: Int) -> Boolean,
-    private val initializerBlock: AdapterDelegateViewBindingViewHolder<I, V>.()->Unit,
-    private val layoutInflater: (parent: ViewGroup) -> LayoutInflater
-    ) : AbsListItemAdapterDelegate<I, T, AdapterDelegateViewBindingViewHolder<I, V>>() {
+    private val initializerBlock: AdapterDelegateViewBindingViewHolder<I, V>.() -> Unit,
+    private val layoutInflater: (parent: ViewGroup) -> LayoutInflater,
+) : AbsListItemAdapterDelegate<I, T, AdapterDelegateViewBindingViewHolder<I, V>>() {
 
     override fun isForViewType(item: T, items: List<T>, position: Int): Boolean = on(
-        item, items, position
+        item,
+        items,
+        position,
     )
 
     override fun onCreateViewHolder(parent: ViewGroup): AdapterDelegateViewBindingViewHolder<I, V> {
         val binding = binding(layoutInflater(parent), parent)
         return AdapterDelegateViewBindingViewHolder<I, V>(
-            binding
+            binding,
         ).also {
             initializerBlock(it)
         }
     }
 
-    override fun onBindViewHolder(
-        item: I,
-        holder: AdapterDelegateViewBindingViewHolder<I, V>,
-        payloads: List<Any>
-    ) {
+    override fun onBindViewHolder(item: I, holder: AdapterDelegateViewBindingViewHolder<I, V>, payloads: List<Any>) {
         holder._item = item
         holder._bind?.invoke(payloads) // It's ok to have an AdapterDelegate without binding block (i.e. static content)
     }
@@ -113,7 +110,8 @@ internal class DslViewBindingListAdapterDelegate<I : T, T : Any, V : ViewBinding
  * @since 4.3.0
  */
 class AdapterDelegateViewBindingViewHolder<T : Any, V : ViewBinding>(
-    val binding: V, view: View = binding.root
+    val binding: V,
+    view: View = binding.root,
 ) : RecyclerView.ViewHolder(view) {
 
     private object Uninitialized
@@ -134,7 +132,7 @@ class AdapterDelegateViewBindingViewHolder<T : Any, V : ViewBinding>(
         get() = if (_item === Uninitialized) {
             throw IllegalArgumentException(
                 "Item has not been set yet. That is an internal issue. " +
-                        "Please report at https://github.com/sockeqwe/AdapterDelegates"
+                    "Please report at https://github.com/sockeqwe/AdapterDelegates",
             )
         } else {
             @Suppress("UNCHECKED_CAST")
@@ -283,7 +281,7 @@ class AdapterDelegateViewBindingViewHolder<T : Any, V : ViewBinding>(
         if (_onViewRecycled != null) {
             throw IllegalStateException(
                 "onViewRecycled { ... } is already defined. " +
-                        "Only one onViewRecycled { ... } is allowed."
+                    "Only one onViewRecycled { ... } is allowed.",
             )
         }
         _onViewRecycled = block
@@ -296,7 +294,7 @@ class AdapterDelegateViewBindingViewHolder<T : Any, V : ViewBinding>(
         if (_onFailedToRecycleView != null) {
             throw IllegalStateException(
                 "onFailedToRecycleView { ... } is already defined. " +
-                        "Only one onFailedToRecycleView { ... } is allowed."
+                    "Only one onFailedToRecycleView { ... } is allowed.",
             )
         }
         _onFailedToRecycleView = block
@@ -309,7 +307,7 @@ class AdapterDelegateViewBindingViewHolder<T : Any, V : ViewBinding>(
         if (_onViewAttachedToWindow != null) {
             throw IllegalStateException(
                 "onViewAttachedToWindow { ... } is already defined. " +
-                        "Only one onViewAttachedToWindow { ... } is allowed."
+                    "Only one onViewAttachedToWindow { ... } is allowed.",
             )
         }
         _onViewAttachedToWindow = block
@@ -322,7 +320,7 @@ class AdapterDelegateViewBindingViewHolder<T : Any, V : ViewBinding>(
         if (_onViewDetachedFromWindow != null) {
             throw IllegalStateException(
                 "onViewDetachedFromWindow { ... } is already defined. " +
-                        "Only one onViewDetachedFromWindow { ... } is allowed."
+                    "Only one onViewDetachedFromWindow { ... } is allowed.",
             )
         }
         _onViewDetachedFromWindow = block
