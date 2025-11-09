@@ -5,6 +5,7 @@ package com.hannesdorfmann.adapterdelegates4
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import io.mockk.mockk
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -17,7 +18,7 @@ class AdapterDelegatesManagerTest {
     fun addRemove() {
         val d1 = object : AdapterDelegate<Any>() {
             override fun isForViewType(items: Any, position: Int) = false
-            override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder? = null
+            override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder = mockk()
             override fun onBindViewHolder(
                 items: Any,
                 position: Int,
@@ -29,7 +30,7 @@ class AdapterDelegatesManagerTest {
 
         val d2 = object : AdapterDelegate<Any>() {
             override fun isForViewType(items: Any, position: Int) = false
-            override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder? = null
+            override fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder = mockk()
             override fun onBindViewHolder(
                 items: Any,
                 position: Int,
@@ -514,7 +515,7 @@ class AdapterDelegatesManagerTest {
         val manager = AdapterDelegatesManager<List<Any>>()
 
         try {
-            manager.getViewType(null)
+            manager.getViewType(null as AdapterDelegate<List<Any>>?)
             fail("Nullpointer Exception expected")
         } catch (e: NullPointerException) {
         }

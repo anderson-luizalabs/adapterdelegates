@@ -34,7 +34,9 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 inline fun <reified I : T, T : Any, V : ViewBinding> adapterDelegateViewBinding(
     noinline viewBinding: (layoutInflater: LayoutInflater, parent: ViewGroup?) -> V,
     noinline on: (item: T, items: List<T>, position: Int) -> Boolean = { item, _, _ -> item is I },
-    noinline layoutInflater: (parent: ViewGroup?) -> LayoutInflater = { parent -> LayoutInflater.from(parent?.context) },
+    noinline layoutInflater: (
+        parent: ViewGroup?,
+    ) -> LayoutInflater = { parent -> LayoutInflater.from(parent?.context) },
     noinline block: AdapterDelegateViewBindingViewHolder<I, V>.() -> Unit,
 ): AdapterDelegate<List<T>> {
     return DslViewBindingListAdapterDelegate(

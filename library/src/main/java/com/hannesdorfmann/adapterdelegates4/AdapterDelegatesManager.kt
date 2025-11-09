@@ -231,7 +231,11 @@ open class AdapterDelegatesManager<T> {
     /**
      * Get the view type for a given delegate.
      */
-    fun getViewType(delegate: AdapterDelegate<T>): Int {
+    fun getViewType(delegate: AdapterDelegate<T>?): Int {
+        if (delegate == null) {
+            throw NullPointerException("Delegate is null")
+        }
+
         val index = delegates.indexOfValue(delegate)
         return if (index == -1) {
             if (fallbackDelegate === delegate) {

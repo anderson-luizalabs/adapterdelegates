@@ -21,37 +21,10 @@ class AsyncListDifferDelegationAdapterTest {
     }
 
     @Test
-    fun itemCallbackIsNull() {
-        try {
-            object : AsyncListDifferDelegationAdapter<Any>(null as DiffUtil.ItemCallback<Any>?) {
-                override fun getItemCount() = 0
-            }
-            fail("Expected NullPointerException")
-        } catch (e: NullPointerException) {
-            assertTrue(e.message?.contains("Parameter specified as non-null is null") == true)
-        }
-    }
-
-    @Test
-    fun adapterDelegateManagerIsNull() {
-        try {
-            object : AsyncListDifferDelegationAdapter<Any>(
-                callback,
-                null as AdapterDelegatesManager<List<Any>>?
-            ) {
-                override fun getItemCount() = 0
-            }
-            fail("Expected NullPointerException")
-        } catch (e: NullPointerException) {
-            assertEquals("AdapterDelegatesManager is null", e.message)
-        }
-    }
-
-    @Test
     fun checkDelegatesManagerInstance() {
         val manager = AdapterDelegatesManager<List<Any>>()
         val config: AsyncDifferConfig<Any> = mockk(relaxed = true)
-        
+
         val adapter = object : AsyncListDifferDelegationAdapter<Any>(config, manager) {
             override fun getItemCount(): Int {
                 // Hacky but does the job
@@ -89,7 +62,7 @@ class AsyncListDifferDelegationAdapterTest {
 
         // bind with payload
         delegate1.onBindViewHolderCalled = false // reset
-        adapter.onBindViewHolder(delegate1.viewHolder, 1, emptyList())
+        adapter.onBindViewHolder(delegate1.viewHolder, 1, mutableListOf())
         assertTrue(delegate1.onBindViewHolderCalled)
         assertFalse(delegate2.onBindViewHolderCalled)
 

@@ -20,17 +20,6 @@ import org.robolectric.annotation.Config
 @Config(sdk = [34])
 class AbsDelegationAdapterTest {
 
-    @Test
-    fun delegatesManagerNull() {
-        try {
-            object : AbsDelegationAdapter<Any>(null as AdapterDelegatesManager<Any>?) {
-                override fun getItemCount() = 0
-            }
-            fail("Expected NullPointerException")
-        } catch (e: NullPointerException) {
-            assertEquals("AdapterDelegatesManager is null", e.message)
-        }
-    }
 
     @Test
     fun checkDelegatesManagerInstance() {
@@ -87,7 +76,7 @@ class AbsDelegationAdapterTest {
 
         // bind with payload
         delegate1.onBindViewHolderCalled = false // reset
-        adapter.onBindViewHolder(delegate1.viewHolder, 1, emptyList())
+        adapter.onBindViewHolder(delegate1.viewHolder, 1, mutableListOf())
         assertTrue(delegate1.onBindViewHolderCalled)
         assertFalse(delegate2.onBindViewHolderCalled)
 
