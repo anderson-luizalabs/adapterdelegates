@@ -40,6 +40,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = false
+        dataBinding = false
     }
 
     lint {
