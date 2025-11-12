@@ -4,6 +4,7 @@
 package com.hannesdorfmann.adapterdelegates4
 
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -30,7 +31,11 @@ open class AdapterDelegatesManager<T> {
      * Map for ViewType to AdapterDelegate
      */
     @JvmField
+    @VisibleForTesting
     internal val delegates = SparseArrayCompat<AdapterDelegate<T>>()
+
+    val delegatesCount: Int
+        get() = delegates.size()
 
     @JvmField
     internal var fallbackDelegate: AdapterDelegate<T>? = null

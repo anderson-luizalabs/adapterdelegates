@@ -6,6 +6,7 @@ package com.hannesdorfmann.adapterdelegates4.paging
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -17,8 +18,8 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
  * @param T The type of items in the PagedList
  */
 open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerView.ViewHolder> {
-    @JvmField
-    protected val delegatesManager: AdapterDelegatesManager<List<T>>
+    @VisibleForTesting
+    internal val delegatesManager: AdapterDelegatesManager<List<T>>
 
     /**
      * @param diffCallback The callback
@@ -67,17 +68,19 @@ open class PagedListDelegationAdapter<T : Any> : PagedListAdapter<T, RecyclerVie
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        getItem(position) // Internally triggers loading items around the given position
         delegatesManager.onBindViewHolder(currentList, position, holder, null)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        getItem(position) // Internally triggers loading items around the given position
         delegatesManager.onBindViewHolder(currentList, position, holder, payloads)
     }
 
     override fun getItemViewType(position: Int): Int {
         return delegatesManager.getItemViewType(currentList, position)
+    }
+
+    public override fun getItem(position: Int): T? {
+        return super.getItem(position)
     }
 
     override fun onViewRecycled(holder: RecyclerView.ViewHolder) {

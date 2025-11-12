@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
+import androidx.test.platform.app.InstrumentationRegistry
 
 /**
+ * This class is a spy that allows you to verify that a certain method has been called.
+ * Also, it captures certain parameters.
+ *
  * @author Hannes Dorfmann
  */
 class SpyableAdapterDelegate<T>(
@@ -41,21 +45,8 @@ class SpyableAdapterDelegate<T>(
     var onBindViewHolderPosition = -1
 
     @JvmField
-    val viewHolder: RecyclerView.ViewHolder
-
-    init {
-        viewHolder = object : RecyclerView.ViewHolder(View(null)) {}
-
-        try {
-            val viewTypeField = RecyclerView.ViewHolder::class.java
-                .getDeclaredField("mItemViewType")
-
-            viewTypeField.isAccessible = true
-            viewTypeField.set(viewHolder, viewType)
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-    }
+    val viewHolder: RecyclerView.ViewHolder =
+        object : RecyclerView.ViewHolder(View(InstrumentationRegistry.getInstrumentation().targetContext)) {}
 
     fun reset() {
         isForViewTypeReturnedYes = false
