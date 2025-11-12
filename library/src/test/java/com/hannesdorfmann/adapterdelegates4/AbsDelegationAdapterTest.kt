@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import io.mockk.*
 import org.junit.Assert.*
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -52,17 +51,17 @@ class AbsDelegationAdapterTest {
     }
 
     @Test
-    @Ignore("Needs Robolectric configuration - test works but initializer fails in CI")
     fun callAllMethods() {
         val delegate1 = SpyableAdapterDelegate<Any>(0)
         val delegate2 = SpyableAdapterDelegate<Any>(1)
         val manager = AdapterDelegatesManager<Any>()
-            .addDelegate(delegate1)
-            .addDelegate(delegate2)
+            .addDelegate(0, delegate1)
+            .addDelegate(1, delegate2)
 
         val adapter = object : AbsDelegationAdapter<Any>(manager) {
-            override fun getItemCount() = 1
+            override fun getItemCount() = (items as List<*>?)?.size ?: 0
         }
+        adapter.items = listOf("foo", "bar")
 
         val parent: ViewGroup = FrameLayout(RuntimeEnvironment.getApplication())
 
@@ -72,13 +71,13 @@ class AbsDelegationAdapterTest {
         assertFalse(delegate2.onCreateViewHolderCalled)
 
         // BindViewHolder
-        adapter.onBindViewHolder(delegate1.viewHolder, 1)
+        adapter.onBindViewHolder(delegate1.viewHolder, 0)
         assertTrue(delegate1.onBindViewHolderCalled)
         assertFalse(delegate2.onBindViewHolderCalled)
 
         // bind with payload
         delegate1.onBindViewHolderCalled = false // reset
-        adapter.onBindViewHolder(delegate1.viewHolder, 1, mutableListOf())
+        adapter.onBindViewHolder(delegate1.viewHolder, 0, mutableListOf())
         assertTrue(delegate1.onBindViewHolderCalled)
         assertFalse(delegate2.onBindViewHolderCalled)
 
@@ -101,5 +100,14 @@ class AbsDelegationAdapterTest {
         adapter.onViewRecycled(delegate1.viewHolder)
         assertTrue(delegate1.onViewRecycledCalled)
         assertFalse(delegate2.onViewRecycledCalled)
+    }
+
+    @Test
+    fun `adapter works with empty list`() {
+        val adapter = object : AbsDelegationAdapter<List<Any>>() {
+            override fun getItemCount() = 0
+        }
+        adapter.items = emptyList()
+        // Should not throw any exception
     }
 }
