@@ -5,6 +5,7 @@ kotlin = "2.1.0"
 kover = "0.9.3"
 mavenPublish = "0.30.0"
 spotless = "7.0.0.BETA4"
+dokka = "2.1.0"
 
 # Android SDK
 compileSdk = "35"
@@ -87,6 +88,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
 [bundles]
 androidx = [
