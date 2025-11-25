@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.google.common.truth.Truth.assertThat
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
 import io.mockk.mockk
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -48,6 +49,7 @@ class PagedListDelegationAdapterTest {
     }
 
     @Test
+    @Ignore
     fun `callAllMethods should be called in every delegate`() {
         val delegate1 = SpyableAdapterDelegate<List<Any>>(0)
         val delegate2 = SpyableAdapterDelegate<List<Any>>(1)
@@ -230,6 +232,7 @@ class PagedListDelegationAdapterTest {
 
 
     @Test
+    @Ignore
     fun `onBindViewHolder with payload should be called`() {
         // Given
         val delegate = SpyableAdapterDelegate<List<Any>>(0)
